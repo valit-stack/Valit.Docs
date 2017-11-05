@@ -1,15 +1,20 @@
-.. Valit documentation master file, created by
-   sphinx-quickstart on Thu Nov  2 21:36:22 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
+=================================
 Welcome to Valit's documentation!
 =================================
 
+Logo
+
+Short description of Valit.
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
+   getting-started/index.rst
+   validation-rules/index.rst
+   validation-errors/index.rst
+   strategies/index.rst
+   release.rst
+   contributors.rst
 
 
 Indices and tables
