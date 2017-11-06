@@ -32,7 +32,7 @@ Because of differences between particular data types, each one contains its own 
 
 Below you can find the full list of available validation rules for supported data types.
 
-.. note:: ``null`` either on validated property or given vale result in rule returning ``false``
+.. note:: ``null`` either on validated property or given value result in rule returning ``false``
 
 Byte  
 ----
