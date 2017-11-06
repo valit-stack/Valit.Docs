@@ -7,7 +7,7 @@ Logo
 Short description of Valit.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    getting-started/index.rst
    validation-rules/index.rst
