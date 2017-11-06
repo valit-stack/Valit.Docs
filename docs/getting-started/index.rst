@@ -9,7 +9,7 @@ Short description
 
 Creating basic validator
 -------------------------
-In order to create a validator you new to go through few steps. It's worth mentioning that not all of them are mandatory. The steps are: 
+In order to create a validator you need to go through few steps. It's worth mentioning that not all of them are mandatory. The steps are: 
 
 - creating new instance of validator using ``Create()`` static method
 - choosing validation :doc:`strategy <../strategies/index>` using ``WithStrategy()`` method **(not required)**

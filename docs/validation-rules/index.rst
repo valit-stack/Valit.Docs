@@ -169,7 +169,7 @@ String
 - ``IsEqualTo(string)`` - checks whether ``string`` property is equal to given value.
 - ``Matches(string)`` - checks whether ``string`` property matches given **regex**.
 - ``MinLength(int)`` - checks whether ``string`` property has at least given number of characters.
-- ``Max(int)`` - checks whether ``string`` property has at most given number of characters.
+- ``MaxLength(int)`` - checks whether ``string`` property has at most given number of characters.
 
 TimeSpan  
 --------
