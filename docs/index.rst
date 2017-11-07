@@ -2,7 +2,9 @@
 Welcome to Valit's documentation!
 =================================
 
-Logo
+.. image:: logo.png
+
+Valit is dead simple validation for .NET Core. No more if-statements all around your code. Write nice and clean fluent validators instead!
 
 Short description of Valit.
 

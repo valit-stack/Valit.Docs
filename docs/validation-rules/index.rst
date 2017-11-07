@@ -257,7 +257,7 @@ We'd like ``CompanyName`` to be required only if the user belongs to some compan
 
 Using ``When()`` we created simple validation condition which solves the issue. 
 
-.. note:: You can apply as much conditions as you want to each rule. If so, they will be merged into one condition using **logical AND** operator.
+.. note:: You can apply as much conditions as you want on each rule. If so, they will be merged into one condition using **logical AND** operator.
 
 Tagging rules
 =============
