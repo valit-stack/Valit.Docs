@@ -219,7 +219,45 @@ UInt64
 
 Conditional rules
 =================
-Examples of conditional rules.
+In some cases there might be need to apply certain validation rules only if specific conditions are fulfilled. Valit allows you to do this using ``When()`` extension which can be applied on each rule. Let's say we have the following model:
+
+.. sourcecode:: csharp
+
+    public class RegisterModel
+    {
+        public string Email { get; set; }        
+        public string Password { get; set; }
+        public string CompanyName { get; set; }
+        public bool IsCompanyMember { get; set; }
+    }
+
+We'd like ``CompanyName`` to be required only if the user belongs to some company (defined by ``IsCompanyMemeber``). Of course, we could create two separate validators to handle both scenarios, but a lot of code would be duplicated. That's where conditional rules come into play:
+
+.. sourcecode:: csharp
+
+
+        void ValidateModel(RegisterModel model)
+        {
+
+            var result = ValitRules<RegisterModel>
+                .Create()
+                .Ensure(m => m.Email, _=>_
+                    .Required()
+                    .Email())
+                .Ensure(m => m.Password, _=>_ 
+                    .Required()
+                    .MinLength(10))
+                .Ensure(m => m.CompanyName, _=>_
+                    .Required()
+                        .When(m => m.IsCompanyMember))
+                .For(model)
+                .Validate();
+        }
+    
+
+Using ``When()`` we created simple validation condition which solves the issue. 
+
+.. note:: You can apply as much conditions as you want to each rule. If so, they will be merged into one condition using **logical AND** operator.
 
 Tagging rules
 =============
