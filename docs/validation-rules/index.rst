@@ -261,4 +261,70 @@ Using ``When()`` we created simple validation condition which solves the issue.
 
 Tagging rules
 =============
-Examples of tagging rules.
+Each validation rule can have its own set of tags. Tags are used for defining subset of rules that will be checked during the validation process. To add tags to the validation rule use ``Tag()`` extension. The code below presents the example usage:
+
+.. sourcecode:: csharp
+
+    public class RegisterModel
+    {
+        public string Email { get; set; }        
+        public int Age { get; set; }
+    }
+
+    void ValidateModel(RegisterModel model)
+    {
+        IValitRules<RegisterModel> valitRules = ValitRules<RegisterModel>
+            .Create()
+            .Ensure(m => m.Email, _=>_
+                .Required()
+                    .Tag("A")
+                .Email()
+                    .Tag("A", "B"))
+            .Ensure(m => m.Age, _=>_
+                .IsGreaterThan(16)
+                    .Tag("B"))
+            .For(model);
+
+        IValitResult result1 = valitRules.Validate("A"); // Checks Required, Email
+        IValitResult result2 = valitRules.Validate("B"); //Checks Email, IsGreaterThan
+        IValitResult result3 = valitRules.Validate("A", "B"); //Checks all rules 
+    }
+
+As you see in the example above, instead of invoking the ``Validate()`` right after the ``For()`` method, we assigned the rules to the variable. Then, using the ``Validate()`` overload which accepts tags, we created three different validation processes. That gave as a lot of flexibility by creating one general set of validation rules instead of three separated. It is important that set of tags passed to the ``Validate()`` method defines that **each rule must have at least one of them, NOT all.** 
+
+``Validate()`` method has also an overload which accepts ``Predicate<IValitRule<TModel>>``:
+
+.. sourcecode:: csharp
+
+    var result1 = rules.Validate(rule => rule.Tags.Any(tag => tag == "A")); // Checks Required, Email
+
+
+The last thing related to this topic is that ``ValitRules<T>`` object provides three methods for getting set of your validation rules. The methods are:
+
+- ``GetAllRules()`` - gets all rules
+- ``GetTaggedRules()`` - gets rules which has at least one tag
+- ``GetUntaggedRules()`` - gets rules with no tags
+
+Of course if you want to get rules with the specific tags, you can use **Linq** for that purpose like in the example below:
+
+.. sourcecode:: csharp
+
+        IEnumerable<IValitRule<RegisterModel>> rulesOnlyWithATag= ValitRules<RegisterModel>
+            .Create()
+            .Ensure(m => m.Email, _=>_
+                .Required().Tag("A")
+                .Email().Tag("B"))
+            .GetTaggedRules()
+                .Where(rule => rule.Tags.Any(tag => tag == "A")); // only Required method is selected
+
+Having the set of rules, you can use them for instantiating new ``ValitRules<T>`` object using ``Create()`` method overload:
+
+.. sourcecode:: csharp
+
+    void ValidateModel(RegisterModel model, IEnumerable<IValitRule<RegisterModel>> rulesOnlyWithATag)
+    {
+        IValitResult result = ValitRules<RegisterModel>
+            .Create(rulesOnlyWithATag)
+            .For(model)
+            .Validate(); // validates the model using only Required rule on Email property
+    }
