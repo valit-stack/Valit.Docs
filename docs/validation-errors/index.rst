@@ -91,7 +91,7 @@ Notice that ``MyMessageProvider`` uses ``string`` as a key type, but you can cho
 
 Error codes
 ------------------
-Valit also supports error codes as an alternative approach to messages. You can add one using ``WithErrorCode`` extension on each validation rule. All error codes are stored inside ``ErrorCodes`` property in the ``IValitResult`` object. The example below present the usage of error codes:
+Valit also supports error codes as an alternative approach to messages. You can add one using ``WithErrorCode()`` extension on each validation rule. All error codes are stored inside ``ErrorCodes`` property in the ``IValitResult`` object. The example below present the usage of error codes:
 
 .. sourcecode:: csharp
 
