@@ -39,6 +39,7 @@ In order to add an error message to the specific validation rule use ``WithMessa
 			}
 		}
     }
+	
 
 Message provider
 ------------------
