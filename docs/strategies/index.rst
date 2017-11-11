@@ -36,11 +36,11 @@ Complete strategy is a default one for Valit. That's why it's not required to de
 
         if(!result.Succeeded)
         {
-			foreach(var message in result.ErrorMessages)
-			{
-				Console.WriteLine(message); // prints both messages
-			}
-		}
+	    foreach(var message in result.ErrorMessages)
+	    {
+		Console.WriteLine(message); // prints both messages
+	    }
+	}
     }
 
 As mentioned, because Complete strategy is a **default one** it is not required to define it explicitly.
@@ -100,25 +100,26 @@ Let's say that our validation strategy should stop the whole process after third
         public int Age { get; set; }
     }
 
-	public class MyCustomStrategy : IValitStrategy
-	{
+    public class MyCustomStrategy : IValitStrategy
+    {
         private int _failCounter;
+	
         public void Fail<TObject>(IValitRule<TObject> rule, IValitResult result, out bool cancel) where TObject : class
-		{
-			if(! result.Succeeded)
+	{
+	    if(! result.Succeeded)
             {
                 _failCounter++;
             }
 
             cancel = _failCounter >= 3;
-		}
-
-		public void Done(IValitResult result)
-		{
-            var message = result.Succeeded? "We did it!" : "We failed!";
-			Console.WriteLine(message);
-		}
 	}
+
+	public void Done(IValitResult result)
+	{
+            var message = result.Succeeded? "We did it!" : "We failed!";
+	    Console.WriteLine(message);
+	}
+    }
 
     void ValidateModel(RegisterModel model)
     {
