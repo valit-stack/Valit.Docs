@@ -68,7 +68,7 @@ Here's an example:
             { "Key2", "Email is incorrect" },
         };
 
-		public string GetByKey(string key)
+	public string GetByKey(string key)
             => _messages[key]; 
     }
 
