@@ -33,10 +33,10 @@ In order to add an error message to the specific validation rule use ``WithMessa
 
 	if(!result.Succeeded)
         {
-		foreach(var message in result.ErrorMessages)
-		{
-			Console.WriteLine(message);
-		}
+	    foreach(var message in result.ErrorMessages)
+	    {
+		Console.WriteLine(message);
+	    }
 	}
     }
 	
@@ -87,10 +87,10 @@ Here's an example:
 
         if(!result.Succeeded)
         {
-		foreach(var message in result.ErrorMessages)
-		{
-			Console.WriteLine(message);
-		}
+	    foreach(var message in result.ErrorMessages)
+	    {
+		Console.WriteLine(message);
+	    }
 	}
     }
 
@@ -124,9 +124,9 @@ Valit also supports error codes as an alternative approach to messages. You can 
 
         if(!result.Succeeded)
         {
-		foreach(var code in result.ErrorCodes)
-		{
-			Console.WriteLine(code);
-		}
+	    foreach(var code in result.ErrorCodes)
+	    {
+		Console.WriteLine(code);
+	    }
 	}
     }
