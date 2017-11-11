@@ -31,13 +31,13 @@ In order to add an error message to the specific validation rule use ``WithMessa
             .For(model)
             .Validate();
 
-		if(!result.Succeeded)
+	if(!result.Succeeded)
         {
-			foreach(var message in result.ErrorMessages)
-			{
-				Console.WriteLine(message);
-			}
+		foreach(var message in result.ErrorMessages)
+		{
+			Console.WriteLine(message);
 		}
+	}
     }
 	
 
@@ -60,8 +60,8 @@ Here's an example:
         public int Age { get; set; }
     } 
 
-	public class MyMessageProvider : IValitMessageProvider<string>
-	{
+    public class MyMessageProvider : IValitMessageProvider<string>
+    {
         private readonly IReadOnlyDictionary<string, string> _messages = new Dictionary<string, string>
         {
             { "Key1", "Email is required" },
@@ -70,7 +70,7 @@ Here's an example:
 
 		public string GetByKey(string key)
             => _messages[key]; 
-	}
+    }
 
     void ValidateModel(RegisterModel model)
     {
@@ -87,11 +87,11 @@ Here's an example:
 
         if(!result.Succeeded)
         {
-			foreach(var message in result.ErrorMessages)
-			{
-				Console.WriteLine(message);
-			}
+		foreach(var message in result.ErrorMessages)
+		{
+			Console.WriteLine(message);
 		}
+	}
     }
 
 Notice that ``MyMessageProvider`` uses ``string`` as a key type, but you can choose any other type you want.
@@ -124,9 +124,9 @@ Valit also supports error codes as an alternative approach to messages. You can 
 
         if(!result.Succeeded)
         {
-			foreach(var code in result.ErrorCodes)
-			{
-				Console.WriteLine(code);
-			}
+		foreach(var code in result.ErrorCodes)
+		{
+			Console.WriteLine(code);
 		}
+	}
     }
