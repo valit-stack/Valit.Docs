@@ -31,10 +31,13 @@ In order to add an error message to the specific validation rule use ``WithMessa
             .For(model)
             .Validate();
 
-        foreach(var message in result.ErrorMessages)
+		if(!result.Succeeded)
         {
-            Console.WriteLine(message);
-        }
+			foreach(var message in result.ErrorMessages)
+			{
+				Console.WriteLine(message);
+			}
+		}
     }
 
 Message provider
@@ -81,10 +84,13 @@ Here's an example:
             .For(model)
             .Validate();
 
-        foreach(var message in result.ErrorMessages)
+        if(!result.Succeeded)
         {
-            Console.WriteLine(message);
-        }
+			foreach(var message in result.ErrorMessages)
+			{
+				Console.WriteLine(message);
+			}
+		}
     }
 
 Notice that ``MyMessageProvider`` uses ``string`` as a key type, but you can choose any other type you want.
@@ -115,8 +121,11 @@ Valit also supports error codes as an alternative approach to messages. You can 
             .For(model)
             .Validate();
 
-        foreach(var code in result.ErrorCodes)
+        if(!result.Succeeded)
         {
-            Console.WriteLine(code);
-        }
+			foreach(var code in result.ErrorCodes)
+			{
+				Console.WriteLine(code);
+			}
+		}
     }
