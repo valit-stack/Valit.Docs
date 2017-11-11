@@ -117,6 +117,6 @@ Valit also supports error codes as an alternative approach to messages. You can 
 
         foreach(var code in result.ErrorCodes)
         {
-            Console.WriteLine(message);
+            Console.WriteLine(code);
         }
     }
