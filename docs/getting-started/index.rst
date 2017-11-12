@@ -5,7 +5,22 @@ This part will guide you through very basic concepts of Valit, including instala
 
 Adding Valit to your project
 ----------------------------
-Short description
+Valit is available on `NuGet <https://www.nuget.org/packages/Valit/>`_.
+
+Package manager
+^^^^^^^^^^^^^^^
+
+.. sourcecode:: bash
+
+   Install-Package Valit -Version 0.1.0
+
+.NET CLI
+^^^^^^^^
+
+.. sourcecode:: bash
+
+   dotnet add package Valit --version 0.1.0
+
 
 Creating basic validator
 -------------------------
