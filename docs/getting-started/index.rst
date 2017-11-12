@@ -3,7 +3,7 @@ Getting started
 ===============
 This part will guide you through very basic concepts of Valit, including instalation proccess and creating simple validator for domain object.
 
-Adding Valit to your project
+Installation
 ----------------------------
 Valit is available on `NuGet <https://www.nuget.org/packages/Valit/>`_.
 
