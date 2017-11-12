@@ -2,4 +2,4 @@
 Release Notes
 =====================
 
-All release notes can be found on `GitHub <https://github.com/valit-stack/Valit/releases>`_.
+All release notes could be found on `GitHub <https://github.com/valit-stack/Valit/releases>`_.
