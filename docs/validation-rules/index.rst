@@ -12,6 +12,7 @@ Valit provides validation rules for plenty different data types **with full supp
 - ``Decimal``
 - ``Double``
 - ``Float``
+- ``Guid``
 - ``IEnumerable<T>``
 - ``Int16``
 - ``Int32``
@@ -109,6 +110,12 @@ Float
 - ``IsNaN()`` - checks whether ``float|float?`` property is ``float.NaN``.
 - ``IsNumber()`` - checks whether ``float|float?`` property is not ``float.NaN``.
 - ``Required()`` - checks whether ``float?`` property is not ``null``.
+
+Guid  
+----
+- ``IsEqualTo(Guid|Guid?)`` - checks whether ``Guid|Guid?`` property is equal to given value.
+- ``IsNotEmpty()`` - checks whether ``Guid|Guid?`` property is not ``Guid.Empty``.
+- ``Required()`` - checks whether ``Guid?`` property is not ``null``.
 
 IEnumerable<T>
 --------------
