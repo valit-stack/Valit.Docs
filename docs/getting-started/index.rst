@@ -11,11 +11,11 @@ Creating basic validator
 -------------------------
 In order to create a validator you need to go through few steps. It's worth mentioning that not all of them are mandatory. The steps are: 
 
-- creating new instance of validator using ``Create()`` static method
-- choosing validation :doc:`strategy <../strategies/index>` using ``WithStrategy()`` method **(not required)**
+- creating new instance of validator using ``Create()`` static method.
+- choosing validation :doc:`strategy <../strategies/index>` using ``WithStrategy()`` method **(not required)**.
 - selecting property using ``Ensure()`` method and defining rules for it. 
-- Extending rules with :doc:`custom errors <../validation-errors/index>` (such as messages or error codes), :doc:`tags <../validation-rules/index>` and :doc:`conditions <../validation-rules/index>`. **(not required)**
-- applying created rules to an object using ``For()`` method
+- Extending rules with :doc:`custom errors <../validation-errors/index>` (such as messages or error codes), :doc:`tags <../validation-rules/index>` and :doc:`conditions <../validation-rules/index>`. **(not required)**.
+- applying created rules to an object using ``For()`` method.
 
 Having the validator created, simply invoke ``Validate()`` method which will produce the result with all the data.
 
@@ -32,11 +32,11 @@ Let's try it out with very practical example. Imagine that you're task is to val
 
 These are the validation criteria:
 
-- ``Email`` is required and needs to be a proper email address
-- ``Password`` is required and needs to be at least 10 characters long
-- ``Age`` must be greater than 16
+- ``Email`` is required and needs to be a valid email address.
+- ``Password`` is required and needs to be at least 10 characters long.
+- ``Age`` must be greater than 16.
 
-This is how Valit handles such scenario:
+This is how you can handle such scenario using Valit:
   
 .. sourcecode:: csharp
 

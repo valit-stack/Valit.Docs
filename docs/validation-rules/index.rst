@@ -32,7 +32,7 @@ Because of differences between particular data types, each one contains its own 
 
 Below you can find the full list of available validation rules for supported data types.
 
-.. note:: ``null`` either on validated property or given value result in rule returning ``false``
+.. note:: ``null`` either on validated property or given value always results rule returning ``false``
 
 Byte  
 ----
@@ -299,11 +299,11 @@ As you see in the example above, instead of invoking the ``Validate()`` right af
     var result1 = rules.Validate(rule => rule.Tags.Any(tag => tag == "A")); // Checks Required, Email
 
 
-The last thing related to this topic is that ``ValitRules<T>`` object provides three methods for getting set of your validation rules. The methods are:
+``ValitRules<T>`` object also provides three methods for getting set of your validation rules. The methods are:
 
-- ``GetAllRules()`` - gets all rules
-- ``GetTaggedRules()`` - gets rules which has at least one tag
-- ``GetUntaggedRules()`` - gets rules with no tags
+- ``GetAllRules()`` - gets all rules.
+- ``GetTaggedRules()`` - gets rules which has at least one tag.
+- ``GetUntaggedRules()`` - gets rules with no tags.
 
 Of course if you want to get rules with the specific tags, you can use **Linq** for that purpose like in the example below:
 
@@ -315,7 +315,7 @@ Of course if you want to get rules with the specific tags, you can use **Linq** 
                 .Required().Tag("A")
                 .Email().Tag("B"))
             .GetTaggedRules()
-                .Where(rule => rule.Tags.Any(tag => tag == "A")); // only Required method is selected
+                .Where(rule => rule.Tags.Contains("A")); // only Required method is selected
 
 Having the set of rules, you can use them for instantiating new ``ValitRules<T>`` object using ``Create()`` method overload:
 

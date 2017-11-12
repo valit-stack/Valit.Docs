@@ -25,7 +25,7 @@ Complete strategy is a default one for Valit. That's why it's not required to de
     {
         IValitResult result = ValitRules<RegisterModel>
             .Create()
-            .WithStrategy(new DefaultValitStrategies().Complete) // not required
+            .WithStrategy(strategyPicker => strategyPicker.Complete) // not required
             .Ensure(m => m.Email, _=>_
                 .Required()
                     .WithMessage("Email is required")
@@ -61,7 +61,7 @@ Fail fast strategy is handy when you only care about the overall result (so does
     {
         IValitResult result = ValitRules<RegisterModel>
             .Create()
-            .WithStrategy(new DefaultValitStrategies().FailFast)
+            .WithStrategy(strategyPicker => strategyPicker.FailFast)
             .Ensure(m => m.Email, _=>_
                 .Required()
                     .WithMessage("Email is required")
@@ -83,7 +83,7 @@ In the example above, the ``ErrorMessages`` contains only one error message adde
 
 Custom strategy
 ------------------
-Of course, both Complete and Fail Fast strategies are the ones we consider as the most useful. But if they still does not fits into your domain, your can create your custom strategy as well. The whole process is straightforward:
+Of course, both Complete and Fail Fast strategies are the ones we consider as the most useful. But if they still are not enough for your needs, your can create custom strategy as well. The whole process is straightforward:
 
 1. Create a class which implements ``IValitStrategy`` interface
 2. Put "failing logic" inside ``Fail()`` method
