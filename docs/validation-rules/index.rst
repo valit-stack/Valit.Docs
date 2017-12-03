@@ -233,6 +233,52 @@ UInt64
 - ``IsPositive()`` - checks whether ``ulong|ulong?`` property is positive **(greater than zero)**.
 - ``Required()`` - checks whether ``ulong?`` property is not ``null``.
 
+Validating nested objects
+=========================
+Sometimes there could be need to validate nested objects. You can do this by creating your own ``RulesProvider``. Let's say we have the following model:
+
+.. sourcecode:: csharp
+
+    public class OrderModel
+    {
+        public AddressModel Address { get; set; }
+    }
+
+    public class AddressModel
+    {
+        public string City { get; set; }
+        public string Street { get; set; }
+    }
+
+We'd like to be sure that ``City`` and ``Street`` in ``OrderModel`` nested object are not empty. To do that we have to create provider:
+
+.. sourcecode:: csharp
+
+    class AddressModelRulesProvider : IValitRulesProvider<AddressModel>
+    {
+        public IEnumerable<IValitRule<AddressModel>> GetRules()
+            => ValitRules<AddressModel>
+            	.Create()
+            	.Ensure(m => m.City, _=>_
+            		.Required())
+            	.Ensure(m => m.Street, _=>_
+            		.Required())
+            	.GetAllRules();
+    }
+
+Then we can validate our ``OrderModel`` using created provider:
+
+.. sourcecode:: csharp
+
+    void ValidateModel(OrderModel model)
+    {
+    	var result = ValitRules<OrderModel>
+    		.Create()
+        	.Ensure(m => m.Address, new AddressModelRulesProvider())
+        	.For(model)
+        	.Validate();
+    }
+
 Conditional rules
 =================
 In some cases there might be need to apply certain validation rules only if specific conditions are fulfilled. Valit allows you to do this using ``When()`` extension which can be applied on each rule. Let's say we have the following model:
