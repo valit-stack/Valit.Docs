@@ -279,6 +279,36 @@ Then we can validate our ``OrderModel`` using created provider:
         	.Validate();
     }
 
+Validating collections
+======================
+
+Using Valit you can also easily validate collections. Let's assume that you have following model:
+
+.. sourcecode:: csharp
+
+    public class ContactModel
+    {
+        public IEnumerable<string> Emails { get; set; }
+    }
+
+We'd like to check if ``Emails`` list is not null and contains only valid e-mail addresses. To validate collections we shuld use ``EnsureFor`` insead of ``Ensure``:
+
+.. sourcecode:: csharp
+
+    void Validate(ContactModel model)
+    {
+    	var result = ValitRules<ContactModel>
+    		.Create()
+            .WithStrategy(picker => picker.FailFast)
+            .EnsureFor(m => m.Emails, _=>_
+            	.Required()
+                .WithMessage("Email list is empty")
+                .Email()
+                .WithMessage("Email list contains incorrect addresses"))
+            .For(model)
+            .Validate();
+    }
+
 Conditional rules
 =================
 In some cases there might be need to apply certain validation rules only if specific conditions are fulfilled. Valit allows you to do this using ``When()`` extension which can be applied on each rule. Let's say we have the following model:
