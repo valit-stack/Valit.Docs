@@ -185,6 +185,7 @@ String
 - ``Matches(string)`` - checks whether ``string`` property matches given **regex**.
 - ``MinLength(int)`` - checks whether ``string`` property has at least given number of characters.
 - ``MaxLength(int)`` - checks whether ``string`` property has at most given number of characters.
+- ``Required()`` - checks whether ``string`` property is not ``null``.
 
 TimeSpan  
 --------
