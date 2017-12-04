@@ -11,6 +11,7 @@ Valit is **dead simple validation** for .NET Core. No more if-statements all aro
 
    getting-started/index.rst
    validation-rules/index.rst
+   valitators/index.rst
    validation-errors/index.rst
    strategies/index.rst
    release.rst

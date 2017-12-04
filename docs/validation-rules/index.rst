@@ -266,7 +266,7 @@ We'd like to be sure that ``City`` and ``Street`` in our ``OrderModel`` are not 
             	.GetAllRules();
     }
 
-Then we can validate our ``OrderModel`` by using the created provider:
+Then we can validate our ``OrderModel`` using the created provider:
 
 .. sourcecode:: csharp
 
@@ -278,6 +278,14 @@ Then we can validate our ``OrderModel`` by using the created provider:
         	.For(model)
         	.Validate();
     }
+
+Using ```IValitRulesProvider<TObject>``` has many adventages:
+- You can reduce number of lines inside ```IValitRules<TObject>``` instance
+- You don't have to duplicate the code for each new, complex type. You can use already existing one.
+- You have single place in your code when it comes to changes
+- You can easily register your provider in IoC container and provide it across your app     
+
+```IValitRulesProvider<TObject>``` can be also easily transformed into :doc:`valitator <../valitators/index>`.
 
 Validating collections
 ======================
@@ -291,7 +299,7 @@ Using Valit you can also easily validate collections. Let's assume that you have
         public IEnumerable<string> Emails { get; set; }
     }
 
-We'd like to check if the ``Emails`` list is not null and contains only valid e-mail addresses. To validate collections we should use ``EnsureFor`` insead of ``Ensure``:
+We'd like to check whether each item in ``Emails`` list is not ``null`` or ``string.Empty`` and is also valid email address. To validate collections use ``EnsureFor``:
 
 .. sourcecode:: csharp
 
