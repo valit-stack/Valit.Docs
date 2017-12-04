@@ -47,7 +47,7 @@ Creating valitator from rules
 
                 if(!result.Succeeded)
                 {
-                        return false;
+			        return false;
                 }
                 ...
             }
@@ -87,7 +87,7 @@ Creating valitator from rules provider
 
 			if(!result.Succeeded)
 			{
-				return false;
+			    return false;
 			}
 			...
 		}
