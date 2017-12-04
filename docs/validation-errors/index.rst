@@ -39,6 +39,40 @@ In order to add an error message to the specific validation rule use ``WithMessa
 	    }
 	}
     }
+
+``WithMessage()`` has also an overload which accepts ```Func<string>``` as parameter:
+
+.. sourcecode:: csharp
+
+    public class RegisterModel
+    {
+        public string Email { get; set; }        
+        public int Age { get; set; }
+    }   
+
+    void ValidateModel(RegisterModel model)
+    {
+        Func<string> getRequiredMessage = () => "Email is required";
+        Func<string> getIncorrectMessage = () => "Email is incorrect";
+
+        IValitResult result = ValitRules<RegisterModel>
+            .Create()
+            .Ensure(m => m.Email, _=>_
+                .Required()
+                    .WithMessage(getRequiredMessage)
+                .Email()
+                    .WithMessage(getIncorrectMessage)
+            .For(model)
+            .Validate();
+
+	if(!result.Succeeded)
+        {
+	    foreach(var message in result.ErrorMessages)
+	    {
+		Console.WriteLine(message);
+	    }
+	}
+    }
 	
 
 Message provider
