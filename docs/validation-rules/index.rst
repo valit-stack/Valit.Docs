@@ -185,7 +185,7 @@ String
 - ``Matches(string)`` - checks whether ``string`` property matches given **regex**.
 - ``MinLength(int)`` - checks whether ``string`` property has at least given number of characters.
 - ``MaxLength(int)`` - checks whether ``string`` property has at most given number of characters.
-- ``Required()`` - checks whether ``string`` property is not ``null``.
+- ``Required()`` - checks whether ``string`` property is not ``null`` or empty.
 
 TimeSpan  
 --------
@@ -250,7 +250,7 @@ Sometimes there could be need to validate nested objects. You can do this by cre
         public string Street { get; set; }
     }
 
-We'd like to be sure that ``City`` and ``Street`` in ``OrderModel`` nested object are not empty. To do that we have to create provider:
+We'd like to be sure that ``City`` and ``Street`` in our ``OrderModel`` are not empty. To do that we have to create the following provider:
 
 .. sourcecode:: csharp
 
@@ -266,7 +266,7 @@ We'd like to be sure that ``City`` and ``Street`` in ``OrderModel`` nested objec
             	.GetAllRules();
     }
 
-Then we can validate our ``OrderModel`` using created provider:
+Then we can validate our ``OrderModel`` by using the created provider:
 
 .. sourcecode:: csharp
 
@@ -291,7 +291,7 @@ Using Valit you can also easily validate collections. Let's assume that you have
         public IEnumerable<string> Emails { get; set; }
     }
 
-We'd like to check if ``Emails`` list is not null and contains only valid e-mail addresses. To validate collections we shuld use ``EnsureFor`` insead of ``Ensure``:
+We'd like to check if the ``Emails`` list is not null and contains only valid e-mail addresses. To validate collections we should use ``EnsureFor`` insead of ``Ensure``:
 
 .. sourcecode:: csharp
 
