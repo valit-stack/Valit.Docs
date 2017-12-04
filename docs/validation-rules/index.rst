@@ -280,6 +280,7 @@ Then we can validate our ``OrderModel`` using the created provider:
     }
 
 Using ```IValitRulesProvider<TObject>``` has many adventages:
+
 - You can reduce number of lines inside ```IValitRules<TObject>``` instance
 - You don't have to duplicate the code for each new, complex type. You can use already existing one.
 - You have single place in your code when it comes to changes
