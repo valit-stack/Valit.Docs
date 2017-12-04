@@ -11,7 +11,7 @@ Valit offers three ways of creating a valitators for a particular type:
 ``IValitator<TObject>`` object provides ``Validate()`` method which accepts two arguments:
 
 - ``TObject @object`` - object of the particular type for validation
-- ``IValitStrategy`` - strategy for validation process. If this argument is not given, **Complete** strategy is picked as a default.
+- ``IValitStrategy strategy`` - strategy for validation process. If this argument is not given, **Complete** strategy is picked as a default.
 
 Let's say we'd like to create a valitator for the following type:
 
@@ -34,36 +34,36 @@ Creating valitator from rules
 
 	class RegistrationService
 	{
-		private readonly IValitator<RegisterModel> _registerModelValitator;
+        private readonly IValitator<RegisterModel> _registerModelValitator;
 
-		public RegistrationService()
-		{
-			_registerModelValitator = CreateValitator();
-		}
+        public RegistrationService()
+        {
+            _registerModelValitator = CreateValitator();
+        }
 
-		public bool Register(RegisterModel model)
-		{
-			var result = _registerModelValitator.Validate(model);
+        public bool Register(RegisterModel model)
+        {
+            var result = _registerModelValitator.Validate(model);
 
-			if(!result.Succeeded)
-			{
-				return false;
-			}
-			...
-		}
+            if(!result.Succeeded)
+            {
+                return false;
+            }
+            ...
+        }
 
-		private IValitator<RegisterModel> CreateValitator()
-			=> ValitRules<RegisterModel>
-				.Create()
-				.Ensure(m => m.Email, _=>_
-					.Required()
-					.Email())
-				.Ensure(m => m.Password, _=>_ 
-					.Required()
-					.MinLength(10))
-				.Ensure(m => m.Age, _=>_
-					.IsGreaterThan(16))
-				.CreateValitator();
+        private IValitator<RegisterModel> CreateValitator()
+            => ValitRules<RegisterModel>
+                .Create()
+                .Ensure(m => m.Email, _=>_
+                    .Required()
+                    .Email())
+                .Ensure(m => m.Password, _=>_ 
+                    .Required()
+                    .MinLength(10))
+                .Ensure(m => m.Age, _=>_
+                    .IsGreaterThan(16))
+                .CreateValitator();
 	}
 
 
