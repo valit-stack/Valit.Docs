@@ -281,10 +281,10 @@ Then we can validate our ``OrderModel`` using the created provider:
 
 Using ```IValitRulesProvider<TObject>``` has many adventages:
 
-- You can reduce number of lines inside ```IValitRules<TObject>``` instance
-- You don't have to duplicate the code for each new, complex type. You can use already existing one.
-- You have single place in your code when it comes to changes
-- You can easily register your provider in IoC container and provide it across your app     
+- You can reduce number of lines inside ```IValitRules<TObject>``` instance.
+- You don't have to duplicate the code for each new, complex type.
+- You have single place in your code when it comes to changes.
+- You can easily register your provider in IoC container and provide it across your app.
 
 ```IValitRulesProvider<TObject>``` can be also easily transformed into :doc:`valitator <../valitators/index>`.
 
@@ -300,7 +300,7 @@ Using Valit you can also easily validate collections. Let's assume that you have
         public IEnumerable<string> Emails { get; set; }
     }
 
-We'd like to check whether each item in ``Emails`` list is not ``null`` or ``string.Empty`` and is also valid email address. To validate collections use ``EnsureFor``:
+We'd like to check whether each item in ``Emails`` list is neither ``null`` nor ``string.Empty`` and is also valid email address. To validate collections use ``EnsureFor``:
 
 .. sourcecode:: csharp
 
