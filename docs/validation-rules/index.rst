@@ -6,6 +6,7 @@ Supported data types
 ====================
 Valit provides validation rules for plenty different data types **with full support for** ``Nullable<T>``. The supported data types are:
 
+- ``Boolean``
 - ``Byte``
 - ``DateTime``
 - ``DateTimeOffset``
@@ -34,6 +35,13 @@ Because of differences between particular data types, each one contains its own 
 Below you can find the full list of available validation rules for supported data types.
 
 .. note:: ``null`` either on validated property or given value always results rule returning ``false``
+
+Boolean
+-------
+- ``IsTrue(bool|bool?)`` - checks whether ``bool|bool?`` property is equal to ``true``.
+- ``IsFalse(bool|bool?)`` - checks whether ``bool|bool?`` property is equal to ``false``.
+- ``IsEqualTo(bool|bool?)`` - checks whether ``bool|bool?`` property is equal to given value.
+- ``Required()`` - checks whether ``bool?`` property is not ``null``.
 
 Byte  
 ----
