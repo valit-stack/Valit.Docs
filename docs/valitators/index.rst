@@ -32,39 +32,39 @@ Creating valitator from rules
 
 .. sourcecode:: csharp
 
-	class RegistrationService
+  class RegistrationService
+  {
+    private readonly IValitator<RegisterModel> _registerModelValitator;
+
+    public RegistrationService()
+    {
+      _registerModelValitator = CreateValitator();
+    }
+
+	public bool Register(RegisterModel model)
 	{
-		private readonly IValitator<RegisterModel> _registerModelValitator;
+		var result = _registerModelValitator.Validate(model);
 
-		public RegistrationService()
+		if(!result.Succeeded)
 		{
-			_registerModelValitator = CreateValitator();
+			return false;
 		}
-
-		public bool Register(RegisterModel model)
-		{
-			var result = _registerModelValitator.Validate(model);
-
-			if(!result.Succeeded)
-			{
-				return false;
-			}
-			...
-		}
-
-		private IValitator<RegisterModel> CreateValitator()
-			=> ValitRules<RegisterModel>
-				.Create()
-				.Ensure(m => m.Email, _=>_
-					.Required()
-					.Email())
-				.Ensure(m => m.Password, _=>_ 
-					.Required()
-					.MinLength(10))
-				.Ensure(m => m.Age, _=>_
-					.IsGreaterThan(16))
-				.CreateValitator();
+		...
 	}
+
+	private IValitator<RegisterModel> CreateValitator()
+		=> ValitRules<RegisterModel>
+			.Create()
+			.Ensure(m => m.Email, _=>_
+				.Required()
+				.Email())
+			.Ensure(m => m.Password, _=>_ 
+				.Required()
+				.MinLength(10))
+			.Ensure(m => m.Age, _=>_
+				.IsGreaterThan(16))
+			.CreateValitator();
+}
 
 
 Creating valitator from rules provider
