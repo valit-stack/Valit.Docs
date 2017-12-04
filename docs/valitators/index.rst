@@ -34,36 +34,36 @@ Creating valitator from rules
 
     class RegistrationService
     {
-            private readonly IValitator<RegisterModel> _registerModelValitator;
+        private readonly IValitator<RegisterModel> _registerModelValitator;
 
-            public RegistrationService()
+        public RegistrationService()
+        {
+            _registerModelValitator = CreateValitator();
+        }
+
+        public bool Register(RegisterModel model)
+        {
+            var result = _registerModelValitator.Validate(model);
+
+            if(!result.Succeeded)
             {
-                _registerModelValitator = CreateValitator();
+                return false;
             }
+            ...
+        }
 
-            public bool Register(RegisterModel model)
-            {
-                var result = _registerModelValitator.Validate(model);
-
-                if(!result.Succeeded)
-                {
-			        return false;
-                }
-                ...
-            }
-
-            private IValitator<RegisterModel> CreateValitator()
-                => ValitRules<RegisterModel>
-                    .Create()
-                    .Ensure(m => m.Email, _=>_
-                            .Required()
-                            .Email())
-                    .Ensure(m => m.Password, _=>_ 
-                            .Required()
-                            .MinLength(10))
-                    .Ensure(m => m.Age, _=>_
-                            .IsGreaterThan(16))
-                    .CreateValitator();
+        private IValitator<RegisterModel> CreateValitator()
+            => ValitRules<RegisterModel>
+                .Create()
+                .Ensure(m => m.Email, _=>_
+                        .Required()
+                        .Email())
+                .Ensure(m => m.Password, _=>_ 
+                        .Required()
+                        .MinLength(10))
+                .Ensure(m => m.Age, _=>_
+                        .IsGreaterThan(16))
+                .CreateValitator();
     }
 
 
@@ -72,77 +72,77 @@ Creating valitator from rules provider
 
 .. sourcecode:: csharp
 
-	class RegistrationService
-	{
-		private readonly IValitator<RegisterModel> _registerModelValitator;
+    class RegistrationService
+    {
+        private readonly IValitator<RegisterModel> _registerModelValitator;
 
-		public RegistrationService()
-		{
-			_registerModelValitator = new RegisterModelRulesProvider().CreateValitator();
-		}
+        public RegistrationService()
+        {
+            _registerModelValitator = new RegisterModelRulesProvider().CreateValitator();
+        }
 
-		public bool Register(RegisterModel model)
-		{
-			var result = _registerModelValitator.Validate(model);
+        public bool Register(RegisterModel model)
+        {
+            var result = _registerModelValitator.Validate(model);
 
-			if(!result.Succeeded)
-			{
-			    return false;
-			}
-			...
-		}
-	}
+            if(!result.Succeeded)
+            {
+                return false;
+            }
+            ...
+        }
+    }
 
-	class RegisterModelRulesProvider : IValitRulesProvider<RegisterModel>
-	{
-		public IEnumerable<IValitRule<RegisterModel>> GetRules()
-			=> ValitRules<RegisterModel>
-				.Create()
-				.Ensure(m => m.Email, _=>_
-					.Required()
-					.Email())
-				.Ensure(m => m.Password, _=>_ 
-					.Required()
-					.MinLength(10))
-				.Ensure(m => m.Age, _=>_
-					.IsGreaterThan(16))
-				.GetAllRules();
-	}
+    class RegisterModelRulesProvider : IValitRulesProvider<RegisterModel>
+    {
+        public IEnumerable<IValitRule<RegisterModel>> GetRules()
+            => ValitRules<RegisterModel>
+                .Create()
+                .Ensure(m => m.Email, _=>_
+                    .Required()
+                    .Email())
+                .Ensure(m => m.Password, _=>_ 
+                    .Required()
+                    .MinLength(10))
+                .Ensure(m => m.Age, _=>_
+                    .IsGreaterThan(16))
+                .GetAllRules();
+    }
 
 Creating valitator class
 ========================
 .. sourcecode:: csharp
 
-	class RegistrationService
-	{
-		private readonly IValitator<RegisterModel> _registerModelValitator;
+    class RegistrationService
+    {
+        private readonly IValitator<RegisterModel> _registerModelValitator;
 
-		public RegistrationService()
-		{
-			_registerModelValitator = new RegisterModelValitator();
-		}
+        public RegistrationService()
+        {
+            _registerModelValitator = new RegisterModelValitator();
+        }
 
-		public bool Register(RegisterModel model)
-		{
-			var result = _registerModelValitator.Validate(model);
+        public bool Register(RegisterModel model)
+        {
+            var result = _registerModelValitator.Validate(model);
 
-			if(!result.Succeeded)
-			{
-				return false;
-			}
-			...
-		}
-	}
+            if(!result.Succeeded)
+            {
+                return false;
+            }
+            ...
+        }
+    }
 
-	class RegisterModelValitator : IValitator<RegisterModel>
-	{
+    class RegisterModelValitator : IValitator<RegisterModel>
+    {
         private readonly IValitRulesStrategyPicker<TObject> _strategyPicker;
 
-		public RegisterModelValitator()
-		{
-			var rules = GetValidationRules();
-			_strategyPicker = ValitRules<RegisterModel>.Create(rules);
-		}
+        public RegisterModelValitator()
+        {
+            var rules = GetValidationRules();
+            _strategyPicker = ValitRules<RegisterModel>.Create(rules);
+        }
 
         public IValitResult Validate(TObject @object, IValitStrategy strategy)
         {
@@ -154,16 +154,16 @@ Creating valitator class
                 .Validate();
         }
 
-		private IValitRulesStrategyPicker<TObject> GetValidationRules()
-			=> ValitRules<RegisterModel>
-				.Create()
-				.Ensure(m => m.Email, _=>_
-					.Required()
-					.Email())
-				.Ensure(m => m.Password, _=>_ 
-					.Required()
-					.MinLength(10))
-				.Ensure(m => m.Age, _=>_
-					.IsGreaterThan(16))
-				.GetAllRules();
-	}
+        private IValitRulesStrategyPicker<TObject> GetValidationRules()
+            => ValitRules<RegisterModel>
+                .Create()
+                .Ensure(m => m.Email, _=>_
+                    .Required()
+                    .Email())
+                .Ensure(m => m.Password, _=>_ 
+                    .Required()
+                    .MinLength(10))
+                .Ensure(m => m.Age, _=>_
+                    .IsGreaterThan(16))
+                .GetAllRules();
+    }
