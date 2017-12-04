@@ -9,6 +9,7 @@ Valit offers three ways of creating a valitators for a particular type:
 - Creating class which implements ``IValitator<TObject>`` interface
 
 ``IValitator<TObject>`` object provides ``Validate()`` method which accepts two arguments:
+
 - ``TObject @object`` - object of the particular type for validation
 - ``IValitStrategy`` - strategy for validation process. If this argument is not given, **Complete** strategy is picked as a default.
 
