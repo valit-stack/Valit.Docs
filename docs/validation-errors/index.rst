@@ -40,7 +40,7 @@ In order to add an error message to the specific validation rule use ``WithMessa
 	}
     }
 
-``WithMessage()`` has also an overload which accepts ```Func<string>``` as parameter:
+``WithMessage()`` has also an overload which accepts ``Func<string>`` as parameter:
 
 .. sourcecode:: csharp
 

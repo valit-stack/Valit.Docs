@@ -279,14 +279,14 @@ Then we can validate our ``OrderModel`` using the created provider:
         	.Validate();
     }
 
-Using ```IValitRulesProvider<TObject>``` has many adventages:
+Using ``IValitRulesProvider<TObject>`` has many adventages:
 
-- You can reduce number of lines inside ```IValitRules<TObject>``` instance.
+- You can reduce number of lines inside ``IValitRules<TObject>`` instance.
 - You don't have to duplicate the code for each new, complex type.
 - You have single place in your code when it comes to changes.
 - You can easily register your provider in IoC container and provide it across your app.
 
-```IValitRulesProvider<TObject>``` can be also easily transformed into :doc:`valitator <../valitators/index>`.
+``IValitRulesProvider<TObject>`` can be also easily transformed into :doc:`valitator <../valitators/index>`.
 
 Validating collections
 ======================
