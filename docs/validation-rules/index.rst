@@ -185,7 +185,7 @@ String
 - ``Matches(string)`` - checks whether ``string`` property matches given **regex**.
 - ``MinLength(int)`` - checks whether ``string`` property has at least given number of characters.
 - ``MaxLength(int)`` - checks whether ``string`` property has at most given number of characters.
-- ``Required()`` - checks whether ``string`` property is not ``null`` or empty.
+- ``Required()`` - checks whether ``string`` property is not ``null``.
 
 TimeSpan  
 --------
@@ -235,7 +235,7 @@ UInt64
 
 Validating nested objects
 =========================
-Sometimes there could be need to validate nested objects. You can do this by creating your own ``RulesProvider``. Let's say we have the following model:
+Sometimes there could be need to validate nested objects. You can do this by creating ``IValitator`` (more details :doc:`here <../valitators/index>`). Let's say we have the following model:
 
 .. sourcecode:: csharp
 
@@ -250,23 +250,24 @@ Sometimes there could be need to validate nested objects. You can do this by cre
         public string Street { get; set; }
     }
 
-We'd like to be sure that ``City`` and ``Street`` in our ``OrderModel`` are not empty. To do that we have to create the following provider:
+We'd like to be sure that ``City`` and ``Street`` in our ``OrderModel`` are not ``null``. To do that we have to create the following valitator:
 
 .. sourcecode:: csharp
 
-    class AddressModelRulesProvider : IValitRulesProvider<AddressModel>
+    public class AdressModelValitator : IValitator<AddressModel>
     {
-        public IEnumerable<IValitRule<AddressModel>> GetRules()
+        public IValitResult Validate(AddressModel @object, IValitStrategy strategy = null)
             => ValitRules<AddressModel>
-            	.Create()
-            	.Ensure(m => m.City, _=>_
-            		.Required())
-            	.Ensure(m => m.Street, _=>_
-            		.Required())
-            	.GetAllRules();
+                .Create()
+                .Ensure(am => am.City, _ => _
+                    .Required())
+                .Ensure(am => am.City, _ => _
+                    .Required())
+                .For(@object)
+                .Validate();
     }
 
-Then we can validate our ``OrderModel`` using the created provider:
+Then we can validate our ``OrderModel`` using the created valitator:
 
 .. sourcecode:: csharp
 
@@ -274,19 +275,11 @@ Then we can validate our ``OrderModel`` using the created provider:
     {
     	var result = ValitRules<OrderModel>
     		.Create()
-        	.Ensure(m => m.Address, new AddressModelRulesProvider())
+        	.Ensure(m => m.Address, new AdressModelValitator())
         	.For(model)
         	.Validate();
     }
 
-Using ``IValitRulesProvider<TObject>`` has many adventages:
-
-- You can reduce number of lines inside ``IValitRules<TObject>`` instance.
-- You don't have to duplicate the code for each new, complex type.
-- You have single place in your code when it comes to changes.
-- You can easily register your provider in IoC container and provide it across your app.
-
-``IValitRulesProvider<TObject>`` can be also easily transformed into :doc:`valitator <../valitators/index>`.
 
 Validating collections
 ======================

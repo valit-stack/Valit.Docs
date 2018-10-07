@@ -12,14 +12,14 @@ Package manager
 
 .. sourcecode:: bash
 
-   Install-Package Valit -Version 1.0.0
+   Install-Package Valit -Version 2.0.0
 
 .NET CLI
 ^^^^^^^^
 
 .. sourcecode:: bash
 
-   dotnet add package Valit --version 1.0.0
+   dotnet add package Valit --version 2.0.0
 
 
 Creating basic validator

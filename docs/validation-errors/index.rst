@@ -73,6 +73,8 @@ In order to add an error message to the specific validation rule use ``WithMessa
 	    }
 	}
     }
+
+.. note:: If no error message is specified for particular rule, Valit uses its own, default message template. The full list of default error messages can be found `here <https://github.com/valit-stack/Valit/blob/master/src/Valit/Errors/ErrorMessages.cs>`.
 	
 
 Message provider

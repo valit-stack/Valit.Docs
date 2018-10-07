@@ -67,48 +67,6 @@ Creating valitator from rules
     }
 
 
-Creating valitator from rules provider
-======================================
-
-.. sourcecode:: csharp
-
-    class RegistrationService
-    {
-        private readonly IValitator<RegisterModel> _registerModelValitator;
-
-        public RegistrationService()
-        {
-            _registerModelValitator = new RegisterModelRulesProvider().CreateValitator();
-        }
-
-        public bool Register(RegisterModel model)
-        {
-            var result = _registerModelValitator.Validate(model);
-
-            if(!result.Succeeded)
-            {
-                return false;
-            }
-            ...
-        }
-    }
-
-    class RegisterModelRulesProvider : IValitRulesProvider<RegisterModel>
-    {
-        public IEnumerable<IValitRule<RegisterModel>> GetRules()
-            => ValitRules<RegisterModel>
-                .Create()
-                .Ensure(m => m.Email, _=>_
-                    .Required()
-                    .Email())
-                .Ensure(m => m.Password, _=>_ 
-                    .Required()
-                    .MinLength(10))
-                .Ensure(m => m.Age, _=>_
-                    .IsGreaterThan(16))
-                .GetAllRules();
-    }
-
 Creating valitator class
 ========================
 .. sourcecode:: csharp
@@ -144,7 +102,7 @@ Creating valitator class
             _strategyPicker = ValitRules<RegisterModel>.Create(rules);
         }
 
-        public IValitResult Validate(TObject @object, IValitStrategy strategy)
+        public IValitResult Validate(RegisterModel @object, IValitStrategy strategy)
         {
             var selectedStrategy = strategy ?? new CompleteValitStrategy();
 
@@ -154,7 +112,7 @@ Creating valitator class
                 .Validate();
         }
 
-        private IValitRulesStrategyPicker<TObject> GetValidationRules()
+        private IValitRulesStrategyPicker<RegisterModel> GetValidationRules()
             => ValitRules<RegisterModel>
                 .Create()
                 .Ensure(m => m.Email, _=>_
